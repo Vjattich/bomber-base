@@ -1,5 +1,6 @@
 package application.producer;
 
+import application.model.Task;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ public class BombStartProducer implements Producer {
         this.template = template;
     }
 
-    public void send(Object message) {
+    public void send(Task message) {
         template.convertAndSend("simple-bomb", null, message);
     }
 

@@ -4,6 +4,7 @@ import application.model.Task;
 import application.producer.Producer;
 import application.service.TaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,8 @@ class TaskControllerTest {
     @MockBean
     private Producer bombStartProducerMock;
 
-    @Test
-    public void createTaskTest() throws Exception {
-
+    @BeforeEach
+    private void setUp() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Mockito
@@ -48,7 +48,10 @@ class TaskControllerTest {
                 .thenReturn(
                         objectMapper.readValue(OUTPUT, Task.class)
                 );
+    }
 
+    @Test
+    public void createTaskTest() throws Exception {
         mvc
                 .perform(
                         MockMvcRequestBuilders

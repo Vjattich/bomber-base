@@ -35,13 +35,18 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    public FanoutExchange fanoutExchange() {
+    public FanoutExchange simpleBombExchange() {
+        return new FanoutExchange("simple-bomb");
+    }
+
+    @Bean
+    public FanoutExchange bombCompleteExchange() {
         return new FanoutExchange("bomb-complete");
     }
 
     @Bean
-    public Binding bombQueueBindings(FanoutExchange fanoutExchange, Queue bombCompleteQueue) {
-        return BindingBuilder.bind(bombCompleteQueue).to(fanoutExchange);
+    public Binding bombQueueBindings(FanoutExchange bombCompleteExchange, Queue bombCompleteQueue) {
+        return BindingBuilder.bind(bombCompleteQueue).to(bombCompleteExchange);
     }
 
 }

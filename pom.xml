@@ -29,19 +29,6 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-jooq</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.jooq</groupId>-->
-<!--            <artifactId>jooq-meta</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.jooq</groupId>-->
-<!--            <artifactId>jooq-codegen</artifactId>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -64,22 +51,20 @@
             <scope>test</scope>
             <exclusions>
                 <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
 
 
     <build>
-
         <plugins>
 
             <plugin>
@@ -113,63 +98,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-<!--            <plugin>-->
-
-<!--                <groupId>org.jooq</groupId>-->
-<!--                <artifactId>jooq-codegen-maven</artifactId>-->
-
-<!--                &lt;!&ndash; The plugin should hook into the generate goal &ndash;&gt;-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>generate</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-
-<!--                &lt;!&ndash; Manage the plugin's dependency. In this example, we'll use a PostgreSQL database &ndash;&gt;-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.h2database</groupId>-->
-<!--                        <artifactId>h2</artifactId>-->
-<!--                        <version>1.4.200</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-
-<!--                &lt;!&ndash; Specify the plugin configuration.-->
-<!--                     The configuration format is the same as for the standalone code generator &ndash;&gt;-->
-<!--                <configuration>-->
-
-<!--                    &lt;!&ndash; JDBC connection parameters &ndash;&gt;-->
-<!--                    <jdbc>-->
-<!--                        <driver>org.h2.Driver</driver>-->
-<!--                        <url>jdbc:h2:tcp://localhost:1521/bomber-db</url>-->
-<!--                        <user>sa</user>-->
-<!--                        <password></password>-->
-<!--                    </jdbc>-->
-
-<!--                    &lt;!&ndash; Generator parameters &ndash;&gt;-->
-<!--                    <generator>-->
-<!--                        <database>-->
-<!--                            <name>org.jooq.meta.h2.H2Database</name>-->
-<!--                            <includes>.*</includes>-->
-<!--                            <inputSchema>PUBLIC</inputSchema>-->
-<!--                        </database>-->
-<!--                        <generate>-->
-<!--                            <pojos>true</pojos>-->
-<!--                            <daos>true</daos>-->
-<!--                            <interfaces>true</interfaces>-->
-<!--                            <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>-->
-<!--                            <javaTimeTypes>true</javaTimeTypes>-->
-<!--                        </generate>-->
-<!--                        <target>-->
-<!--                            <packageName>org.jooq.sources</packageName>-->
-<!--                            <directory>target/generated-sources/jooq/</directory>-->
-<!--                        </target>-->
-<!--                    </generator>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
 
         </plugins>
     </build>

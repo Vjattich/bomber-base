@@ -1,6 +1,9 @@
-FROM bellsoft/liberica-openjdk-alpine:11.0.9-12
-ARG JAR_FILE=target/*.jar
-ARG PROP_FILE=config/application.properties
-COPY ${JAR_FILE} app.jar
-COPY ${PROP_FILE} config/application.properties
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM maven:latest
+ENV HOME=/usr/src/bomber-base
+RUN mkdir -p $HOME
+WORKDIR $HOME
+ADD pom.xml $HOME
+RUN ["mvn", "verify", "clean", "--fail-never"]
+ADD . $HOME
+RUN ["mvn", "package"]
+RUN ["mvn", "spring-boot:run"]

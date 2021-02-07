@@ -6,16 +6,12 @@ Simple java application to create tasks for core module.
 
 You can run this module in docker with rabbitmq with it.
 
-1. mvn clean package
-2. docker build -t bomber-base .
-3. docker run -d --network bomber_net --name bomber-base bomber-base
+1. docker build -t bomber-base .
+2. docker run -d --network bomber_net --name bomber-base bomber-base
 
 ## TODO
-#### Tests
 
 #### Logging
-
-#### Services
 
 ## License 
 

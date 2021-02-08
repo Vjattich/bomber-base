@@ -6,4 +6,4 @@ ADD pom.xml $HOME
 RUN ["mvn", "verify", "clean", "--fail-never"]
 ADD . $HOME
 RUN ["mvn", "package"]
-RUN ["mvn", "spring-boot:run"]
+CMD ["mvn", "spring-boot:run"]

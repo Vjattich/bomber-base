@@ -1,0 +1,1 @@
+docker run --network bomber_net --name bomber-base bomber-base

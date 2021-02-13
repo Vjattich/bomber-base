@@ -17,8 +17,10 @@ public class Phonenumber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @Column(length = 11)
     private String number;
+
     @ManyToOne
     @JoinColumn(name = "task_id")
     @JsonIgnore

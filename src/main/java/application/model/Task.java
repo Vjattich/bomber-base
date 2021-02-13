@@ -34,4 +34,7 @@ public class Task {
     @JoinColumn(name = "task_id")
     private List<Phonenumber> phonenumbers;
 
+    @Column(length = 2000)
+    private String message;
+
 }

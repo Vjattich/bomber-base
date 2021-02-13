@@ -23,8 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(TaskController.class)
 class TaskControllerTest {
 
-    private final String INPUT = "{\"userId\":\"1\",\"platform\":\"Telegram\",\"userName\":\"1\",\"isPay\":true,\"phonenumbers\":[\"212312\"]}";
-    private final String OUTPUT = "{\"id\":1,\"userId\":\"1\",\"userName\":\"1\",\"platform\":\"Telegram\",\"status\":\"CREATED\",\"isPay\":true,\"phonenumbers\":[{\"id\":1,\"number\":\"212312\"}]}";
+    private final String INPUT = "{\"userId\":\"1\",\"platform\":\"Telegram\",\"userName\":\"1\",\"isPay\":true,\"phonenumbers\":[\"79999999999\"]}";
+    private final String OUTPUT = "{\"id\":1,\"userId\":\"1\",\"userName\":\"1\",\"platform\":\"Telegram\",\"status\":\"CREATED\",\"isPay\":true,\"phonenumbers\":[{\"id\":1,\"number\":\"79999999999\"}],\"message\":null}";
 
     @Autowired
     private MockMvc mvc;

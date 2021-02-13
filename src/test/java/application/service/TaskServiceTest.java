@@ -56,6 +56,10 @@ class TaskServiceTest {
                 Arguments.of(
                         new Task(null, "2", "2", "Telegram", TaskStatus.CREATED, null, List.of(new Phonenumber("79999999999"), new Phonenumber("79999999991")), null),
                         new Task(null, "2", "2", "Telegram", TaskStatus.CREATED, false, List.of(new Phonenumber("79999999999"), new Phonenumber(null, "79999999991", null)), "You use pay feature")
+                ),
+                Arguments.of(
+                        new Task(null, "1", "1", "Telegram", TaskStatus.CREATED, null, Collections.emptyList(), null),
+                        new Task(null, "1", "1", "Telegram", TaskStatus.CREATED, null, Collections.emptyList(), "Set some numbers")
                 )
         );
     }

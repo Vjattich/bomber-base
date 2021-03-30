@@ -30,7 +30,7 @@ public class Task {
 
     private Boolean isPay;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "task_id")
     private List<Phonenumber> phonenumbers;
 

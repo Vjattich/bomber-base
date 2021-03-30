@@ -1,4 +1,4 @@
-package application.producer;
+package application.integration.producer;
 
 import application.model.Task;
 

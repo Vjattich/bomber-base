@@ -1,5 +1,6 @@
 package application.service;
 
+import application.integration.producer.Producer;
 import application.model.BannedPhonenumber;
 import application.model.Phonenumber;
 import application.model.Task;
@@ -22,20 +23,24 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final PayUserRepository payUserRepository;
     private final BannedNumberRepository bannedNumberRepository;
+    private final Producer bombStartProducer;
 
     public TaskServiceImpl(TaskRepository taskRepository,
                            PayUserRepository payUserRepository,
-                           BannedNumberRepository bannedNumberRepository) {
+                           BannedNumberRepository bannedNumberRepository,
+                           Producer bombStartProducer
+    ) {
         this.taskRepository = taskRepository;
         this.payUserRepository = payUserRepository;
         this.bannedNumberRepository = bannedNumberRepository;
+        this.bombStartProducer = bombStartProducer;
     }
 
     @Override
     @Transactional
-    public Task save(Task task) {
+    public Task createTask(Task task) {
 
-        log.info("Received task with by {}", task.getUserId());
+        log.info("Received task by {}", task.getUserId());
 
         if (task.getPhonenumbers().isEmpty()) {
             log.info("Task by {} is empty", task.getUserId());
@@ -61,8 +66,21 @@ public class TaskServiceImpl implements TaskService {
         }
 
         log.info("Save task {}", task);
-        
-        return taskRepository.save(task);
+
+        Task save = taskRepository.saveAndFlush(task);
+
+        //todo find place for this
+        bombStartProducer.send(save);
+
+        return save;
+    }
+
+    @Override
+    @Transactional
+    public Task updateStatus(Task task) {
+        taskRepository.updateStatus(task.getId(), task.getStatus());
+
+        return taskRepository.findById(task.getId()).get();
     }
 
     private List<BannedPhonenumber> getBannedNumbers(List<Phonenumber> phonenumbers) {
@@ -80,11 +98,7 @@ public class TaskServiceImpl implements TaskService {
 
     private boolean isCanNotMultinumbers(Task task) {
 
-        if (task.getPhonenumbers().size() > 1 && !task.getIsPay()) {
-            return true;
-        }
-
-        return false;
+        return task.getPhonenumbers().size() > 1 && !task.getIsPay();
     }
 
 }

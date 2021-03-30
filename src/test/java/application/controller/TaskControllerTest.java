@@ -1,7 +1,7 @@
 package application.controller;
 
+import application.integration.producer.Producer;
 import application.model.Task;
-import application.producer.Producer;
 import application.service.TaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +41,7 @@ class TaskControllerTest {
 
         Mockito
                 .when(
-                        taskServiceMock.save(
+                        taskServiceMock.createTask(
                                 objectMapper.readValue(INPUT, Task.class)
                         )
                 )

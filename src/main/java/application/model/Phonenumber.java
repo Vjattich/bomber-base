@@ -21,8 +21,7 @@ public class Phonenumber {
     @Column(length = 11)
     private String number;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Task task;
 

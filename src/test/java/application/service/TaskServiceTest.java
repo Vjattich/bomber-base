@@ -1,5 +1,6 @@
 package application.service;
 
+import application.integration.producer.Producer;
 import application.model.*;
 import application.repository.BannedNumberRepository;
 import application.repository.PayUserRepository;
@@ -35,6 +36,9 @@ class TaskServiceTest {
     @MockBean
     private BannedNumberRepository bannedNumberRepository;
 
+    @MockBean
+    private Producer bombStartProducer;
+
     private static Stream<Arguments> saveTestArguments() {
         return Stream.of(
                 Arguments.of(
@@ -66,7 +70,7 @@ class TaskServiceTest {
 
     @BeforeEach
     private void setUp() {
-        taskService = new TaskServiceImpl(taskRepository, payUserRepository, bannedNumberRepository);
+        taskService = new TaskServiceImpl(taskRepository, payUserRepository, bannedNumberRepository, bombStartProducer);
 
         AtomicLong taskIdCounter = new AtomicLong();
         AtomicLong numberIdCounter = new AtomicLong();
@@ -80,7 +84,7 @@ class TaskServiceTest {
             }
 
             return task;
-        }).when(taskRepository).save(any(Task.class));
+        }).when(taskRepository).saveAndFlush(any(Task.class));
 
         Mockito.when(bannedNumberRepository.findAllById(Collections.singletonList("79989981122"))).thenReturn(
                 List.of(new BannedPhonenumber("79989981122"))
@@ -102,12 +106,9 @@ class TaskServiceTest {
 
     @ParameterizedTest
     @MethodSource("saveTestArguments")
-    //todo complete
-    //1. set status
-    //2. correct number?
     public void saveTest(Task input, Task output) {
 
-        assertEquals(output, taskService.save(input));
+        assertEquals(output, taskService.createTask(input));
 
     }
 

@@ -4,6 +4,8 @@ import application.model.Task;
 
 public interface TaskService {
 
-    Task save(Task task);
+    Task createTask(Task task);
+
+    Task updateStatus(Task task);
 
 }
